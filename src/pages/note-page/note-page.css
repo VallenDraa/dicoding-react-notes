@@ -1,0 +1,76 @@
+.note__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--size) * 5);
+}
+
+.note__back-link {
+  color: var(--secondary-text-color);
+  font-weight: bold;
+  display: inline-block;
+  padding-bottom: calc(var(--size) * 1.5);
+}
+
+.note__title {
+  font-size: calc(var(--size) * 7.5);
+}
+
+.note__created-at {
+  font-size: calc(var(--size) * 3.5);
+  color: var(--tertiary-text-color);
+}
+
+.note__content {
+  color: var(--secondary-text-color);
+}
+
+.note__end-message {
+  display: block;
+  font-weight: bold;
+  text-align: end;
+  color: var(--tertiary-text-color);
+  font-size: calc(var(--size) * 3.5);
+}
+
+.note__missing-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-block: calc(var(--size) * 12);
+}
+
+.note__missing-message {
+  color: var(--secondary-text-color);
+  margin-top: calc(var(--size) * 1.1);
+  margin-bottom: calc(var(--size) * 5);
+}
+
+.note__actions-wrapper {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  bottom: calc(var(--size) * 3);
+  gap: calc(var(--size) * 3);
+}
+
+.note__actions {
+  display: flex;
+  justify-content: end;
+  gap: calc(var(--size) * 2);
+  margin: auto;
+  max-width: 540px;
+}
+
+.note__action {
+  all: unset;
+  width: calc(var(--size) * 8.5);
+  height: calc(var(--size) * 8.5);
+  background-color: var(--secondary-bg-color);
+  font-size: calc(var(--size) * 5);
+  padding: var(--size);
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

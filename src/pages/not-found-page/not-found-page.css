@@ -1,0 +1,19 @@
+.not-found__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-block: calc(var(--size) * 12);
+}
+
+.not-found__message {
+  color: var(--secondary-text-color);
+  margin-top: calc(var(--size) * 1.1);
+  margin-bottom: calc(var(--size) * 5);
+}
+
+.not-found__back-link {
+  color: var(--secondary-text-color);
+  font-weight: bold;
+  display: inline-block;
+  padding-bottom: calc(var(--size) * 1.5);
+}

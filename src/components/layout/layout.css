@@ -1,0 +1,11 @@
+.note-app {
+  max-width: 540px;
+  width: 95%;
+  margin: auto;
+  padding-bottom: calc(var(--size) * 12);
+}
+
+.note-app__body {
+  margin: auto;
+  padding: calc(var(--size) * 3);
+}

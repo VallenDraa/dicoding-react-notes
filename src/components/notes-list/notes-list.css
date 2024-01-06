@@ -1,0 +1,76 @@
+.notes-list-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size);
+  margin-bottom: calc(var(--size) * 3);
+}
+
+.notes-list-header__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notes-list-header__tab-changer {
+  font-weight: bold;
+  background-color: var(--main-bg-color);
+  border-color: var(--secondary-bg-color);
+  color: var(--secondary-text-color);
+  padding: calc(var(--size) * 2);
+  border-radius: var(--size);
+}
+
+.notes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-rows: minmax(min-content, max-content);
+  gap: calc(var(--size) * 4);
+  margin-bottom: calc(var(--size) * 12);
+}
+
+.notes-list__empty-message {
+  text-align: center;
+  color: var(--secondary-text-color);
+}
+
+.notes-list__end-message {
+  display: block;
+  font-weight: bold;
+  text-align: end;
+  color: var(--tertiary-text-color);
+  font-size: calc(var(--size) * 3.5);
+}
+
+.notes-list__actions-wrapper {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  bottom: calc(var(--size) * 3);
+  gap: calc(var(--size) * 3);
+}
+
+.notes-list__actions {
+  display: flex;
+  justify-content: end;
+  gap: calc(var(--size) * 2);
+  margin: auto;
+  max-width: 540px;
+}
+
+.notes-list__action {
+  all: unset;
+  width: calc(var(--size) * 8.5);
+  height: calc(var(--size) * 8.5);
+  background-color: var(--secondary-bg-color);
+  font-size: calc(var(--size) * 7);
+  padding: var(--size);
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notes-list__action:hover {
+  text-decoration: none;
+}

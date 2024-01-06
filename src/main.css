@@ -1,0 +1,56 @@
+@import "./variables.css";
+
+@font-face {
+  font-family: "Geist";
+  src: local("GeistRegular"),
+    url("./fonts/Geist/Geist-Regular.otf") format("opentype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: local("GeistBold"),
+    url("./fonts/Geist/Geist-Bold.otf") format("opentype");
+  font-weight: bold;
+}
+
+* {
+  font-family: "Geist";
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overscroll-behavior: none;
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+}
+
+input,
+textarea {
+  resize: none;
+  padding: calc(var(--size) * 3);
+  margin: calc(var(--size) * 3) 0;
+  background-color: transparent;
+  color: var(--main-text-color);
+  border: 1px solid var(--secondary-bg-color);
+  border-radius: var(--size);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--tertiary-text-color);
+  font-weight: bold;
+}
+
+button,
+a {
+  all: unset;
+  cursor: pointer;
+}
+
+a:hover {
+  text-underline-offset: calc(var(--size) / 1.5);
+  text-decoration: underline;
+}

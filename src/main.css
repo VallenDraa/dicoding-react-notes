@@ -21,10 +21,21 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
   overscroll-behavior: none;
-  background-color: var(--main-bg-color);
-  color: var(--main-text-color);
+}
+
+#root {
+  flex-grow: 1;
 }
 
 input,

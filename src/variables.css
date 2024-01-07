@@ -2,7 +2,7 @@
   --size: 4px;
 
   --main-bg-color: #202124;
-  --secondary-bg-color: #4a4d54;
+  --secondary-bg-color: #414349;
 
   --main-text-color: #e5e7e8;
   --secondary-text-color: #abafb5;
@@ -13,4 +13,13 @@
 
   --warning: #facc15;
   --secondary-warning: #eab308;
+}
+
+.note-app--light {
+  --main-bg-color: #f5f6f6;
+  --secondary-bg-color: #cdd0d4;
+
+  --main-text-color: #3a3c3f;
+  --secondary-text-color: #4a4d54;
+  --tertiary-text-color: #575b63;
 }

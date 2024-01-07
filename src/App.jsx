@@ -1,5 +1,10 @@
 import { Layout } from "./components/layout";
+import { Providers } from "./components/layout/providers";
 
 export function App() {
-  return <Layout />;
+  return (
+    <Providers>
+      <Layout />
+    </Providers>
+  );
 }

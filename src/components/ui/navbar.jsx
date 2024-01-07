@@ -1,23 +1,40 @@
 import { Link } from "react-router-dom";
-import "./navbar.css";
 import { THEME, useThemeContext } from "../../context/theme-context";
+import { LOCALE, useLocaleContext } from "../../context/locale-context";
+import { LOCALE_DATA } from "../../utils/locale-data";
+import "./navbar.css";
 
 export function Navbar() {
   const { theme, toggleTheme } = useThemeContext();
+  const { locale, toggleLocale } = useLocaleContext();
 
   return (
     <header className="navbar">
-      <button
-        title={theme === THEME.dark ? "Toggle Light Mode" : "Toggle Dark Mode"}
-        onClick={toggleTheme}
-        className={`navbar__theme-toggle ${
-          theme === THEME.dark
-            ? "navbar__theme-toggle--dark"
-            : "navbar__theme-toggle--light"
-        }`}
-      >
-        {theme === THEME.dark ? "🌞" : "🌚"}
-      </button>
+      <div className="navbar__toggle-wrapper">
+        <button
+          title={
+            theme === THEME.dark
+              ? LOCALE_DATA[locale].navbar.themeLight
+              : LOCALE_DATA[locale].navbar.themeDark
+          }
+          onClick={toggleTheme}
+          className="navbar__toggle"
+        >
+          {theme === THEME.dark ? "🌞" : "🌚"}
+        </button>
+        <button
+          title={
+            LOCALE === LOCALE.en
+              ? LOCALE_DATA[locale].navbar.languageID
+              : LOCALE_DATA[locale].navbar.languangeEN
+          }
+          onClick={toggleLocale}
+          className="navbar__toggle"
+        >
+          {locale === LOCALE.en ? "ID" : "EN"}
+        </button>
+      </div>
+
       <h1 className="navbar__title">
         <Link to="/">
           notnotion
@@ -28,10 +45,10 @@ export function Navbar() {
       <nav className="navbar__link-wrapper">
         <ul className="navbar__links">
           <li className="navbar__link">
-            <Link to="/">home</Link>
+            <Link to="/">{LOCALE_DATA[locale].navbar.home}</Link>
           </li>
           <li className="navbar__link">
-            <Link to="/archive">archive</Link>
+            <Link to="/archive">{LOCALE_DATA[locale].navbar.archive}</Link>
           </li>
         </ul>
       </nav>

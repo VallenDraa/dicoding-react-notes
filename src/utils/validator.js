@@ -7,3 +7,5 @@ export const noteValidator = PropTypes.exact({
   createdAt: PropTypes.string,
   archived: PropTypes.bool,
 });
+
+export const notesListType = PropTypes.oneOf(["active", "archived"]);

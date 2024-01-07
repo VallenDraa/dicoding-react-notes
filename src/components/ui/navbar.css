@@ -5,7 +5,9 @@
   border-bottom: 1px solid var(--secondary-bg-color);
   justify-content: center;
   margin-bottom: calc(var(--size) * 3.5);
-  padding-bottom: var(--size);
+  padding-bottom: calc(var(--size) * 3);
+  gap: calc(var(--size) * 2.5);
+  flex-wrap: wrap;
 }
 
 .navbar__title {
@@ -43,10 +45,20 @@
   padding-inline: calc(var(--size) * 1.5);
 }
 
-.navbar__theme-toggle {
+.navbar__toggle-wrapper {
+  display: flex;
+  gap: var(--size);
+}
+
+.navbar__toggle {
   padding: calc(var(--size) / 1.5);
-  margin-right: var(--size);
   font-size: calc(var(--size) * 4);
   background-color: var(--secondary-bg-color);
   border-radius: calc(var(--size));
+  height: calc(var(--size) * 6);
+  width: calc(var(--size) * 6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }

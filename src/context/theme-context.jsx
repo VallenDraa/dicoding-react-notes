@@ -10,7 +10,11 @@ const ThemeContext = React.createContext({
 export const useThemeContext = () => React.useContext(ThemeContext);
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = React.useState(THEME.dark);
+  const [theme, setTheme] = React.useState(
+    localStorage.getItem("theme") ?? "dark",
+  );
+
+  React.useEffect(() => localStorage.setItem("theme", theme), [theme]);
 
   const toggleTheme = React.useCallback(() => {
     setTheme(prev => (prev === THEME.dark ? THEME.light : THEME.dark));

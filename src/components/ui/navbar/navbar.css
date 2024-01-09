@@ -41,7 +41,15 @@
   color: var(--main-text-color);
 }
 
-.navbar__link a {
+.navbar__link--danger {
+  color: var(--danger);
+}
+
+.navbar__link--danger:hover {
+  color: var(--secondary-danger);
+}
+
+.navbar__link :is(a, button) {
   padding-inline: calc(var(--size) * 1.5);
 }
 

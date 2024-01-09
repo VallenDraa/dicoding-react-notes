@@ -1,13 +1,15 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { NoteSearchbar } from "../note-searchbar";
-import { noteValidator, notesListType } from "../../utils/validator";
-import { NoteItem } from "../note-item";
-import { Link } from "react-router-dom";
 import "./notes-list.css";
 
+import PropTypes from "prop-types";
+import React from "react";
+import { Link } from "react-router-dom";
+
+import { notesListType, noteValidator } from "../../utils/validator";
+import { NoteItem } from "../note-item";
+import { NoteSearchbar } from "../note-searchbar";
+
 export function NotesList({ keyword, onSearch, notes, type = "active" }) {
-  const [filteredNotes, setFilteredNotes] = React.useState(notes);
+  const [filteredNotes] = React.useState(notes);
 
   return (
     <section>

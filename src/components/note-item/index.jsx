@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
-import { noteValidator } from "../../utils/validator";
-import { showFormattedDate } from "../../utils/formatter";
 import "./note-item.css";
+
+import { Link } from "react-router-dom";
+
+import { showFormattedDate } from "../../utils/formatter";
+import { noteValidator } from "../../utils/validator";
 
 export const NoteItem = ({ note }) => {
   const { id, title, body, archived, createdAt } = note;

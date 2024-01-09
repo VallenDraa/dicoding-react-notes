@@ -1,9 +1,10 @@
+import "./new-note-page.css";
+
 import PropTypes from "prop-types";
 import React from "react";
-import { Navbar } from "../../components/ui/navbar";
 import { useNavigate } from "react-router-dom";
 
-import "./new-note-page.css";
+import { Navbar } from "../../components/ui/navbar";
 
 export function NewNotePage({ onAddNote }) {
   const [title, setTitle] = React.useState("");

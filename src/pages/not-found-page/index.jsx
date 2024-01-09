@@ -1,7 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Navbar } from "../../components/ui/navbar";
 import "./not-found-page.css";
+
+import { Link } from "react-router-dom";
+
+import { Navbar } from "../../components/ui/navbar";
 
 export function NotFoundPage() {
   return (

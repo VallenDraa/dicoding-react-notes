@@ -1,9 +1,9 @@
-import React from "react";
+import PropTypes from "prop-types";
+import { useSearchParams } from "react-router-dom";
+
 import { NotesList } from "../components/notes-list";
 import { Navbar } from "../components/ui/navbar";
-import PropTypes from "prop-types";
-import { noteValidator, notesListType } from "../utils/validator";
-import { useSearchParams } from "react-router-dom";
+import { notesListType, noteValidator } from "../utils/validator";
 
 export function NotesListPage({ notes = [], type = "active" }) {
   const [searchParams, setSearchParams] = useSearchParams();

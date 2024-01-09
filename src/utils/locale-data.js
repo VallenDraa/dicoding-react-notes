@@ -1,4 +1,4 @@
-import { LOCALE } from "../context/locale-context";
+export const LOCALE = { en: "en", id: "id" };
 
 export const LOCALE_DATA = {
   [LOCALE.en]: {
@@ -11,6 +11,7 @@ export const LOCALE_DATA = {
       languangeEN: "Read In English.",
       home: "home",
       archive: "archive",
+      logout: "logout",
     },
     noteSearchBar: {},
     newNotePage: {},
@@ -26,6 +27,7 @@ export const LOCALE_DATA = {
       languangeEN: "Baca Dalam B.Inggris.",
       home: "rumah",
       archive: "arsip",
+      logout: "keluar",
     },
   },
 };

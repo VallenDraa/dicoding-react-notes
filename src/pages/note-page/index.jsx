@@ -1,10 +1,11 @@
-import React from "react";
-import { Navbar } from "../../components/ui/navbar";
-import PropTypes from "prop-types";
-import { noteValidator } from "../../utils/validator";
-import { useParams, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import "./note-page.css";
+
+import PropTypes from "prop-types";
+import { useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import { Navbar } from "../../components/ui/navbar";
+import { noteValidator } from "../../utils/validator";
 
 export function NotePage({ notes, onArchive, onDelete }) {
   const { id } = useParams();
@@ -71,7 +72,7 @@ export function NotePage({ notes, onArchive, onDelete }) {
         </section>
       ) : (
         <section className="note__missing-wrapper">
-          <h2 className="note__missing-title">can't find note.</h2>
+          <h2 className="note__missing-title">can&apos;t find note.</h2>
           <p className="note__missing-message">
             it seems that the note you were looking is missing!
           </p>

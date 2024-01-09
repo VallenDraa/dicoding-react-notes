@@ -1,14 +1,17 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { NotesListPage } from "../../pages/notes-list-page";
-import { NewNotePage } from "../../pages/new-note-page";
-import { NotePage } from "../../pages/note-page";
-import { NotFoundPage } from "../../pages/not-found-page";
-import { THEME, useThemeContext } from "../../context/theme-context";
 import "./layout.css";
 
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import { useTheme } from "../../hooks";
+import { LoginPage } from "../../pages/login-page";
+import { NewNotePage } from "../../pages/new-note-page";
+import { NotFoundPage } from "../../pages/not-found-page";
+import { NotePage } from "../../pages/note-page";
+import { NotesListPage } from "../../pages/notes-list-page";
+import { THEME } from "../../utils/theme-data";
+
 export function Layout() {
-  const { theme } = useThemeContext();
+  const { theme } = useTheme();
 
   return (
     <div
@@ -19,6 +22,8 @@ export function Layout() {
       <main className="note-app__body">
         <BrowserRouter>
           <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<LoginPage />} />
             <Route
               path="/"
               element={<NotesListPage notes={[]} type="active" />}

@@ -1,13 +1,12 @@
+import PropTypes from "prop-types";
 import React from "react";
 
-export const THEME = { dark: "dark", light: "light" };
+import { THEME } from "../utils/theme-data";
 
-const ThemeContext = React.createContext({
+export const ThemeContext = React.createContext({
   theme: THEME.dark,
   toggleTheme() {},
 });
-
-export const useThemeContext = () => React.useContext(ThemeContext);
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = React.useState(
@@ -26,3 +25,7 @@ export function ThemeProvider({ children }) {
     </ThemeContext.Provider>
   );
 }
+
+ThemeProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};

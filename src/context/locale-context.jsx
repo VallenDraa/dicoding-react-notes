@@ -1,13 +1,12 @@
+import PropTypes from "prop-types";
 import React from "react";
 
-export const LOCALE = { en: "en", id: "id" };
+import { LOCALE } from "../utils/locale-data";
 
-const LocaleContext = React.createContext({
+export const LocaleContext = React.createContext({
   locale: LOCALE.en,
   toggleLocale() {},
 });
-
-export const useLocaleContext = () => React.useContext(LocaleContext);
 
 export function LocaleProvider({ children }) {
   const [locale, setLocale] = React.useState(
@@ -26,3 +25,7 @@ export function LocaleProvider({ children }) {
     </LocaleContext.Provider>
   );
 }
+
+LocaleProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};

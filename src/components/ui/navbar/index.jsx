@@ -1,12 +1,15 @@
-import { Link } from "react-router-dom";
-import { THEME, useThemeContext } from "../../context/theme-context";
-import { LOCALE, useLocaleContext } from "../../context/locale-context";
-import { LOCALE_DATA } from "../../utils/locale-data";
 import "./navbar.css";
 
+import { Link } from "react-router-dom";
+
+import { useLocale, useTheme } from "../../../hooks";
+import { LOCALE, LOCALE_DATA } from "../../../utils/locale-data";
+import { THEME } from "../../../utils/theme-data";
+import LogoutButton from "../button/logout-button";
+
 export function Navbar() {
-  const { theme, toggleTheme } = useThemeContext();
-  const { locale, toggleLocale } = useLocaleContext();
+  const { theme, toggleTheme } = useTheme();
+  const { locale, toggleLocale } = useLocale();
 
   return (
     <header className="navbar">
@@ -49,6 +52,9 @@ export function Navbar() {
           </li>
           <li className="navbar__link">
             <Link to="/archive">{LOCALE_DATA[locale].navbar.archive}</Link>
+          </li>
+          <li className="navbar__link navbar__link--danger">
+            <LogoutButton />
           </li>
         </ul>
       </nav>

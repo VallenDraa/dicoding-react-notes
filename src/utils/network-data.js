@@ -8,6 +8,10 @@ export function putAccessToken(accessToken) {
   return localStorage.setItem("accessToken", accessToken);
 }
 
+export function deleteAccessToken() {
+  localStorage.removeItem("accessToken");
+}
+
 export async function fetchWithToken(url, options = {}) {
   return fetch(url, {
     ...options,

@@ -4,18 +4,20 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { useAuth } from "../../hooks";
 import { notesListType, noteValidator } from "../../utils/validator";
 import { NoteItem } from "../note-item";
 import { NoteSearchbar } from "../note-searchbar";
 
 export function NotesList({ keyword, onSearch, notes, type = "active" }) {
   const [filteredNotes] = React.useState(notes);
+  const { user, isLoading } = useAuth();
 
   return (
     <section>
       <div className="notes-list-header">
         <div className="notes-list-header__top">
-          <h2>{`🗒️${type} notes`}</h2>
+          <h2>{`🗒️${!isLoading ? user.name : "xxxx"}'s ${type} notes`}</h2>
         </div>
         <NoteSearchbar keyword={keyword} onKeywordChange={onSearch} />
       </div>

@@ -12,27 +12,42 @@ import {
 
 export const AuthContext = React.createContext({
   user: null,
-  register() {},
-  login() {},
+  isLoading: false,
+  isLoggedIn: false,
+  // eslint-disable-next-line no-unused-vars
+  async register({ name, email, password }) {},
+  // eslint-disable-next-line no-unused-vars
+  async login({ email, password }) {},
   logout() {},
 });
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = React.useState(null);
-
+  // State besides the user data
+  const [isLoading, setIsLoading] = React.useState(true);
   const [hasUserFetched, setHasUserFetched] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(
+    () => getAccessToken() !== null,
+  );
+
+  // User data states
+  const [user, setUser] = React.useState(null);
   const [accessToken, setAccessToken] = React.useState(() => getAccessToken());
 
   const fetchUser = React.useCallback(async () => {
+    setIsLoading(true);
+    setHasUserFetched(false);
+
     try {
       const userData = await getUserLogged();
-      setUser(userData);
+      setIsLoading(false);
+      setUser(userData.data);
+      setHasUserFetched(true);
     } catch (error) {
-      alert("Fail to get user data!");
       setUser(null);
+      setIsLoading(false);
+      setHasUserFetched(false);
+      throw new Error(error);
     }
-
-    setHasUserFetched(true);
   }, []);
 
   // Get the user data on first load
@@ -43,37 +58,40 @@ export function AuthProvider({ children }) {
   }, [hasUserFetched, accessToken, fetchUser]);
 
   const login = React.useCallback(async ({ email, password }) => {
-    try {
-      deleteAccessToken();
-      const loginResponse = await networkLogin({ email, password });
+    const loginResponse = await networkLogin({ email, password });
 
-      if (loginResponse.error) {
-        throw new Error();
-      }
-
-      putAccessToken(loginResponse.data);
-    } catch (error) {
-      alert("Fail to login!");
+    if (loginResponse.error) {
+      throw new Error("Fail to login!");
     }
+
+    setIsLoggedIn(true);
+    putAccessToken(loginResponse.data.accessToken);
+    setAccessToken(loginResponse.data.accessToken);
   }, []);
 
   const register = React.useCallback(async ({ name, email, password }) => {
-    try {
-      await networkRegister({ name, email, password });
-    } catch (error) {
-      alert("Fail to register!");
-    }
+    await networkRegister({ name, email, password });
   }, []);
 
   const logout = React.useCallback(() => {
     deleteAccessToken();
     setUser(null);
+    setIsLoggedIn(false);
     setHasUserFetched(false);
     setAccessToken(null);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, register }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isLoading,
+        isLoggedIn,
+        login,
+        logout,
+        register,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

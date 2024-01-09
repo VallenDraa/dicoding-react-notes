@@ -18,7 +18,7 @@
   font-family: "Geist";
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
 
 html {
@@ -47,6 +47,7 @@ textarea {
   color: var(--main-text-color);
   border: 1px solid var(--secondary-bg-color);
   border-radius: var(--size);
+  font-weight: bold;
 }
 
 input::placeholder,

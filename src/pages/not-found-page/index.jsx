@@ -3,8 +3,11 @@ import "./not-found-page.css";
 import { Link } from "react-router-dom";
 
 import { Navbar } from "../../components/ui/navbar";
+import { useAuth } from "../../hooks";
 
 export function NotFoundPage() {
+  const { isLoggedIn } = useAuth();
+
   return (
     <>
       <Navbar />
@@ -14,7 +17,7 @@ export function NotFoundPage() {
           it seems that the page you were looking is missing!
         </p>
         <Link to="/" className="not-found__back-link">
-          🏠return home
+          {isLoggedIn ? "🏠return home" : "📝login"}
         </Link>
       </section>
     </>

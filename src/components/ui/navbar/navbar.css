@@ -1,5 +1,4 @@
 .navbar {
-  margin-inline: auto;
   display: flex;
   align-items: end;
   border-bottom: 1px solid var(--secondary-bg-color);

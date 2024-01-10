@@ -16,7 +16,7 @@ export default function LogoutButton() {
 
   return (
     <button to="/login" onClick={handleLogout}>
-      {LOCALE_DATA[locale].navbar.logout}
+      {LOCALE_DATA[locale].logoutButton.logout}
     </button>
   );
 }

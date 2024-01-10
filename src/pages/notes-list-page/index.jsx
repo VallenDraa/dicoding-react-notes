@@ -4,13 +4,17 @@ import React from "react";
 
 import { NotesList } from "../../components/notes-list";
 import { Navbar } from "../../components/ui/navbar";
+import { useLocale } from "../../hooks";
+import { LOCALE_DATA } from "../../utils/locale-data";
 import { getActiveNotes, getArchivedNotes } from "../../utils/network-data";
 import { notesListType } from "../../utils/validator";
 
 export function NotesListPage({ type = "active" }) {
+  const { locale } = useLocale();
+
   const [isLoading, setIsLoading] = React.useState(true);
   const [notes, setNotes] = React.useState([]);
-  const [error, setError] = React.useState(null);
+  const [error, setError] = React.useState(false);
 
   const fetchNotes = React.useCallback(async () => {
     setIsLoading(true);
@@ -20,7 +24,7 @@ export function NotesListPage({ type = "active" }) {
         type === "active" ? await getActiveNotes() : await getArchivedNotes();
 
       if (notesData.error) {
-        setError("Fail to fetch notes!");
+        setError(true);
         return;
       }
 
@@ -29,7 +33,7 @@ export function NotesListPage({ type = "active" }) {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      setError("Fail to fetch notes!");
+      setError(true);
     }
   }, [type]);
 
@@ -43,7 +47,7 @@ export function NotesListPage({ type = "active" }) {
       {error ? (
         <section className="notes-list-page__error-message">
           <span>⚠️</span>
-          <p>oops, we failed to fetch the notes!</p>
+          <p>{LOCALE_DATA[locale].notesListPage.errorAlert}</p>
         </section>
       ) : (
         <NotesList type={type} notes={notes ?? []} isLoading={isLoading} />

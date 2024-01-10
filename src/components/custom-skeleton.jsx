@@ -13,8 +13,8 @@ export function CustomSkeleton(props) {
     <Skeleton
       {...props}
       style={{ marginBottom: 5 }}
-      highlightColor={theme === "dark" ? "#202124" : "#f5f6f6"}
-      baseColor={theme === "dark" ? "#414349" : "#cdd0d4"}
+      highlightColor={theme === "dark" ? "#2021241a" : "#f5f6f61a"}
+      baseColor={theme === "dark" ? "#4143491a" : "#cdd0d41a"}
     />
   );
 }

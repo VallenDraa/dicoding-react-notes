@@ -4,9 +4,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { useAuth } from "../../hooks";
+import { useAuth, useLocale } from "../../hooks";
+import { LOCALE_DATA } from "../../utils/locale-data";
 
 export function LoginPage() {
+  const { locale } = useLocale();
+
   const navigate = useNavigate();
   const { login, logout } = useAuth();
 
@@ -20,7 +23,7 @@ export function LoginPage() {
     event.preventDefault();
 
     if (!email || !password) {
-      alert("please fill in all fields");
+      alert(LOCALE_DATA[locale].loginPage.missingFieldAlert);
       return;
     }
 
@@ -28,7 +31,7 @@ export function LoginPage() {
       await login({ email, password });
       navigate("/");
     } catch (error) {
-      alert("Fail to login!");
+      alert(LOCALE_DATA[locale].loginPage.failToLogin);
     }
   }
 
@@ -38,7 +41,7 @@ export function LoginPage() {
         <div className="auth-form__logo">
           <span>🗒️</span>
           <h1>notnotion.</h1>
-          <p>write stuff here, but login first... </p>
+          <p>{LOCALE_DATA[locale].loginPage.subtitle}</p>
         </div>
 
         <label className="auth-form__label">
@@ -46,7 +49,7 @@ export function LoginPage() {
             className="auth-form__input"
             type="email"
             value={email}
-            placeholder="email"
+            placeholder={LOCALE_DATA[locale].loginPage.emailPlaceholder}
             onChange={e => setEmail(e.target.value)}
           />
         </label>
@@ -54,7 +57,7 @@ export function LoginPage() {
           <input
             value={password}
             type="password"
-            placeholder="password"
+            placeholder={LOCALE_DATA[locale].loginPage.passwordPlaceholder}
             className="auth-form__input"
             onChange={e => setPassword(e.target.value)}
           />
@@ -65,11 +68,11 @@ export function LoginPage() {
             type="submit"
             className="auth-form__button auth-form__button--submit"
           >
-            login
+            {LOCALE_DATA[locale].loginPage.submitButton}
           </button>
 
           <Link to="/register" className="auth-form__link">
-            new to notnotion?
+            {LOCALE_DATA[locale].loginPage.registerLink}
           </Link>
         </div>
       </form>

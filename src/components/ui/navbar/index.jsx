@@ -48,7 +48,7 @@ export function Navbar() {
       <nav className="navbar__link-wrapper">
         <ul className="navbar__links">
           <li className="navbar__link">
-            <Link to="/">{LOCALE_DATA[locale].navbar.home}</Link>
+            <Link to="/">{LOCALE_DATA[locale].navbar.active}</Link>
           </li>
           <li className="navbar__link">
             <Link to="/archive">{LOCALE_DATA[locale].navbar.archive}</Link>

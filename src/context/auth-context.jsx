@@ -70,13 +70,22 @@ export function AuthProvider({ children }) {
   }, []);
 
   const register = React.useCallback(async ({ name, email, password }) => {
-    await networkRegister({ name, email, password });
+    try {
+      const registerResponse = await networkRegister({ name, email, password });
+
+      if (registerResponse.error) {
+        throw new Error(registerResponse.message);
+      }
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }, []);
 
   const logout = React.useCallback(() => {
     deleteAccessToken();
     setUser(null);
     setIsLoggedIn(false);
+    setIsLoading(false);
     setHasUserFetched(false);
     setAccessToken(null);
   }, []);

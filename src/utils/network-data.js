@@ -34,7 +34,6 @@ export async function login({ email, password }) {
   const responseJson = await response.json();
 
   if (responseJson.status !== "success") {
-    alert(responseJson.message);
     return { error: true, data: null };
   }
 
@@ -53,11 +52,10 @@ export async function register({ name, email, password }) {
   const responseJson = await response.json();
 
   if (responseJson.status !== "success") {
-    alert(responseJson.message);
-    return { error: true };
+    return { error: true, message: responseJson.message };
   }
 
-  return { error: false };
+  return { error: false, message: responseJson.message };
 }
 
 export async function getUserLogged() {

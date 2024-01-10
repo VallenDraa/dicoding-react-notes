@@ -4,16 +4,20 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Navbar } from "../../components/ui/navbar";
+import { useLocale } from "../../hooks";
+import { LOCALE_DATA } from "../../utils/locale-data";
 import { addNote } from "../../utils/network-data";
 
 export function NewNotePage() {
+  const { locale } = useLocale();
+  const navigate = useNavigate();
+
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
-  const navigate = useNavigate();
 
   async function handleSaveNote() {
     if (!title || !body) {
-      alert("Please fill in the title and body of the note.");
+      alert(LOCALE_DATA[locale].newNotePage.errorAlert);
       return;
     }
 
@@ -29,14 +33,14 @@ export function NewNotePage() {
         <h2
           contentEditable
           suppressContentEditableWarning
-          placeholder="untitled note..."
+          placeholder={LOCALE_DATA[locale].newNotePage.titlePlaceholder}
           className="new-note__input new-note__input--title"
           onInput={e => setTitle(e.target.innerHTML)}
         ></h2>
         <p
           contentEditable
           suppressContentEditableWarning
-          placeholder="content of the note goes here."
+          placeholder={LOCALE_DATA[locale].newNotePage.contentPlaceholder}
           className="new-note__input new-note__input--content"
           onInput={e => setBody(e.target.innerHTML)}
         ></p>

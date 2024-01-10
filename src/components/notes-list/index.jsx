@@ -5,13 +5,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
-import { useAuth } from "../../hooks";
+import { useAuth, useLocale } from "../../hooks";
+import { LOCALE, LOCALE_DATA } from "../../utils/locale-data";
 import { notesListType, noteValidator } from "../../utils/validator";
 import { CustomSkeleton } from "../custom-skeleton";
 import { NoteItem } from "../note-item";
 import { NoteSearchbar } from "../note-searchbar";
 
 export function NotesList({ isLoading, type = "active", notes }) {
+  const { locale } = useLocale();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
   const [sortDesc, setSortDesc] = React.useState(true);
@@ -37,12 +40,26 @@ export function NotesList({ isLoading, type = "active", notes }) {
     <section>
       <div className="notes-list-header">
         <div className="notes-list-header__top">
-          <h2>{`🗒️${!isLoadingUser ? user.name : "xxxx"}'s ${type} notes`}</h2>
+          {isLoadingUser ? (
+            <CustomSkeleton height={32} width={280} />
+          ) : (
+            <h2>
+              {locale === LOCALE.en &&
+                `🗒️${!isLoadingUser ? user?.name : "xxxx"}'s ${
+                  LOCALE_DATA[locale].notesList[type]
+                } ${LOCALE_DATA[locale].notesList.title}`}
+
+              {locale === LOCALE.id &&
+                `🗒️${LOCALE_DATA[locale].notesList.title} ${
+                  LOCALE_DATA[locale].notesList[type]
+                } ${!isLoadingUser ? user?.name : "xxxx"}`}
+            </h2>
+          )}
           <button
             className="notes-list-header__sort-button"
             onClick={() => setSortDesc(prev => !prev)}
           >
-            {sortDesc ? "⬇️" : "⬆️"} sort
+            {`${sortDesc ? "⬇️" : "⬆️"} ${LOCALE_DATA[locale].notesList.sort}`}
           </button>
         </div>
         <NoteSearchbar
@@ -60,7 +77,7 @@ export function NotesList({ isLoading, type = "active", notes }) {
           height={200}
         />
       ) : filteredNotes.length === 0 ? (
-        <p className="notes-list__empty-message">no notes here 🙅</p>
+        <p className="notes-list__empty-message">{`${LOCALE_DATA[locale].notesList.emptyMessage} 🙅`}</p>
       ) : (
         <>
           <ul className="notes-list">
@@ -69,7 +86,9 @@ export function NotesList({ isLoading, type = "active", notes }) {
             ))}
           </ul>
 
-          <span className="notes-list__end-message">end of note list.</span>
+          <span className="notes-list__end-message">
+            {LOCALE_DATA[locale].notesList.endOfNotes}
+          </span>
         </>
       )}
 

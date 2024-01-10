@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 
 import { CustomSkeleton } from "../../components/custom-skeleton";
 import { Navbar } from "../../components/ui/navbar";
+import { useLocale } from "../../hooks";
+import { LOCALE_DATA } from "../../utils/locale-data";
 import {
   archiveNote,
   deleteNote,
@@ -16,19 +18,20 @@ import {
 
 export function NotePage() {
   const navigate = useNavigate();
+  const { locale } = useLocale();
 
   const { id } = useParams();
 
   const [hasFetched, setHasFetched] = React.useState(false);
   const [note, setNote] = React.useState(null);
-  const [error, setError] = React.useState(null);
+  const [error, setError] = React.useState(false);
 
   const fetchNote = React.useCallback(async () => {
     try {
       const noteData = await getNote(id);
 
       if (noteData.error) {
-        setError("Fail to fetch note!");
+        setError(true);
         return;
       }
 
@@ -36,7 +39,7 @@ export function NotePage() {
       setHasFetched(true);
     } catch (error) {
       setHasFetched(true);
-      setError("Fail to fetch note!");
+      setError(true);
     }
   }, [id]);
 
@@ -58,7 +61,9 @@ export function NotePage() {
   }
 
   function handleDelete() {
-    const isConfirmed = confirm("are you sure you want to delete this note?");
+    const isConfirmed = confirm(
+      LOCALE_DATA[locale].notePage.confirmDeleteAlert,
+    );
 
     if (isConfirmed) {
       deleteNote(id);
@@ -74,27 +79,27 @@ export function NotePage() {
         <section className="note__alert-wrapper">
           <h2 className="note__alert-title">⚠️</h2>
           <p className="note__alert-message">
-            can&apos;t fetch the note you were looking for!
+            {LOCALE_DATA[locale].notePage.errorAlert}
           </p>
           <Link to="/" className="note__back-link">
-            🏠return home
+            {`🏠${LOCALE_DATA[locale].notePage.errorBackLink}`}
           </Link>
         </section>
       ) : !note && hasFetched ? (
         <section className="note__alert-wrapper">
           <h2 className="note__alert-title">⚠️</h2>
           <p className="note__alert-message">
-            the note you were looking is missing!
+            {LOCALE_DATA[locale].notePage.missingAlert}
           </p>
           <Link to="/" className="note__back-link">
-            🏠return home
+            {`🏠${LOCALE_DATA[locale].notePage.errorBackLink}`}
           </Link>
         </section>
       ) : (
         <section className="note__wrapper">
           <div className="note__header">
             <Link to="/" className="note__back-link">
-              &larr; back
+              &larr; {LOCALE_DATA[locale].notePage.back}
             </Link>
 
             <h2 className="note__title">
@@ -113,7 +118,7 @@ export function NotePage() {
             {hasFetched ? (
               parse(note?.body ?? "")
             ) : (
-              <CustomSkeleton count={5} height={50} />
+              <CustomSkeleton height={400} />
             )}
           </div>
           <span className="note__end-message">

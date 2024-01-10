@@ -1,9 +1,11 @@
 import "./note-page.css";
 
+import parse from "html-react-parser";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+import { CustomSkeleton } from "../../components/custom-skeleton";
 import { Navbar } from "../../components/ui/navbar";
 import {
   archiveNote,
@@ -69,65 +71,73 @@ export function NotePage() {
       <Navbar />
 
       {error ? (
-        <section className="note__missing-wrapper">
-          <h2 className="note__missing-title">can&apos;t fetch note data.</h2>
-          <p className="note__missing-message">
-            it seems that we can&apos;t fetch the note you were looking for!
+        <section className="note__alert-wrapper">
+          <h2 className="note__alert-title">⚠️</h2>
+          <p className="note__alert-message">
+            can&apos;t fetch the note you were looking for!
           </p>
           <Link to="/" className="note__back-link">
             🏠return home
           </Link>
         </section>
-      ) : note ? (
+      ) : !note && hasFetched ? (
+        <section className="note__alert-wrapper">
+          <h2 className="note__alert-title">⚠️</h2>
+          <p className="note__alert-message">
+            the note you were looking is missing!
+          </p>
+          <Link to="/" className="note__back-link">
+            🏠return home
+          </Link>
+        </section>
+      ) : (
         <section className="note__wrapper">
           <div className="note__header">
             <Link to="/" className="note__back-link">
               &larr; back
             </Link>
 
-            <h2
-              className="note__title"
-              dangerouslySetInnerHTML={{ __html: note.title }}
-            ></h2>
-            <time dateTime={note.createdAt} className="note__created-at">
-              {new Date(note.createdAt).toLocaleString()}
+            <h2 className="note__title">
+              {hasFetched ? parse(note?.title ?? "") : <CustomSkeleton />}
+            </h2>
+            <time dateTime={note?.createdAt} className="note__created-at">
+              {hasFetched ? (
+                new Date(note?.createdAt).toLocaleString()
+              ) : (
+                <CustomSkeleton />
+              )}
             </time>
           </div>
 
-          <p
-            className="note__content"
-            dangerouslySetInnerHTML={{ __html: note.body }}
-          ></p>
-          <span className="note__end-message">end of note.</span>
+          <div className="note__content">
+            {hasFetched ? (
+              parse(note?.body ?? "")
+            ) : (
+              <CustomSkeleton count={5} height={50} />
+            )}
+          </div>
+          <span className="note__end-message">
+            {hasFetched ? "end of note." : <CustomSkeleton />}
+          </span>
 
           <div className="note__actions-wrapper">
             <div className="note__actions">
               <button
-                title={note.archived ? "unarchive" : "archive"}
+                title={note?.archived ? "unarchive" : "archive"}
                 className="note__action"
-                onClick={handleArchive}
+                onClick={hasFetched ? handleArchive : undefined}
               >
-                <span>{note.archived ? "📂" : "📁"}</span>
+                <span>{note?.archived ? "📂" : "📁"}</span>
               </button>
               <button
                 title="delete"
                 className="note__action"
-                onClick={handleDelete}
+                onClick={hasFetched ? handleDelete : undefined}
               >
                 <span>⛔</span>
               </button>
             </div>
           </div>
-        </section>
-      ) : (
-        <section className="note__missing-wrapper">
-          <h2 className="note__missing-title">can&apos;t find note.</h2>
-          <p className="note__missing-message">
-            it seems that the note you were looking is missing!
-          </p>
-          <Link to="/" className="note__back-link">
-            🏠return home
-          </Link>
         </section>
       )}
     </>

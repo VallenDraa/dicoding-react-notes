@@ -10,7 +10,6 @@
 
 .note__back-link {
   color: var(--secondary-text-color);
-  font-weight: bold;
   display: inline-block;
   padding-bottom: calc(var(--size) * 1.5);
 }
@@ -37,15 +36,20 @@
   font-size: calc(var(--size) * 3.5);
 }
 
-.note__missing-wrapper {
+.note__alert-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-block: calc(var(--size) * 12);
+  margin-block: calc(var(--size) * 5);
 }
 
-.note__missing-message {
+.note__alert-title {
+  font-size: calc(var(--size) * 8);
+}
+
+.note__alert-message {
   color: var(--secondary-text-color);
+  font-weight: bold;
   margin-top: calc(var(--size) * 1.1);
   margin-bottom: calc(var(--size) * 5);
 }

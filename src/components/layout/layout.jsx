@@ -29,13 +29,10 @@ export function Layout() {
             <Route path="/register" element={<RegisterPage />} />
 
             <Route element={<ProtectedRoute />}>
-              <Route
-                path="/"
-                element={<NotesListPage notes={[]} type="active" />}
-              />
+              <Route path="/" element={<NotesListPage type="active" />} />
               <Route
                 path="/archive"
-                element={<NotesListPage notes={[]} type="archived" />}
+                element={<NotesListPage type="archived" />}
               />
               <Route path="/new-note" element={<NewNotePage />} />
               <Route path="/note/:id" element={<NotePage />} />

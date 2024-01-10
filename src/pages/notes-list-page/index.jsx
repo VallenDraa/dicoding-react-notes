@@ -45,10 +45,8 @@ export function NotesListPage({ type = "active" }) {
           <span>⚠️</span>
           <p>oops, we failed to fetch the notes!</p>
         </section>
-      ) : isLoading ? (
-        <section className="notes-list-page__loading-wrapper"></section>
       ) : (
-        <NotesList type={type} notes={notes ?? []} />
+        <NotesList type={type} notes={notes ?? []} isLoading={isLoading} />
       )}
     </>
   );

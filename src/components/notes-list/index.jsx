@@ -7,15 +7,16 @@ import { useSearchParams } from "react-router-dom";
 
 import { useAuth } from "../../hooks";
 import { notesListType, noteValidator } from "../../utils/validator";
+import { CustomSkeleton } from "../custom-skeleton";
 import { NoteItem } from "../note-item";
 import { NoteSearchbar } from "../note-searchbar";
 
-export function NotesList({ type = "active", notes }) {
+export function NotesList({ isLoading, type = "active", notes }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
   const [sortDesc, setSortDesc] = React.useState(true);
 
-  const { user, isLoading } = useAuth();
+  const { user, isLoading: isLoadingUser } = useAuth();
 
   const filteredNotes = React.useMemo(() => {
     return notes
@@ -36,7 +37,7 @@ export function NotesList({ type = "active", notes }) {
     <section>
       <div className="notes-list-header">
         <div className="notes-list-header__top">
-          <h2>{`🗒️${!isLoading ? user.name : "xxxx"}'s ${type} notes`}</h2>
+          <h2>{`🗒️${!isLoadingUser ? user.name : "xxxx"}'s ${type} notes`}</h2>
           <button
             className="notes-list-header__sort-button"
             onClick={() => setSortDesc(prev => !prev)}
@@ -54,11 +55,21 @@ export function NotesList({ type = "active", notes }) {
         <p className="notes-list__empty-message">no notes here 🙅</p>
       ) : (
         <>
-          <ul className="notes-list">
-            {filteredNotes.map(note => (
-              <NoteItem key={note.id} note={note} />
-            ))}
-          </ul>
+          {isLoading ? (
+            <CustomSkeleton
+              inline
+              containerClassName="notes-list"
+              className="note-item"
+              count={10}
+              height={200}
+            />
+          ) : (
+            <ul className="notes-list">
+              {filteredNotes.map(note => (
+                <NoteItem key={note.id} note={note} />
+              ))}
+            </ul>
+          )}
           <span className="notes-list__end-message">end of note list.</span>
         </>
       )}
@@ -75,6 +86,7 @@ export function NotesList({ type = "active", notes }) {
 }
 
 NotesList.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
   notes: PropTypes.arrayOf(noteValidator).isRequired,
   type: notesListType.isRequired,
 };

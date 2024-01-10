@@ -39,8 +39,8 @@
 
 .new-note__action {
   all: unset;
-  width: calc(var(--size) * 8.5);
-  height: calc(var(--size) * 8.5);
+  width: calc(var(--size) * 12);
+  height: calc(var(--size) * 12);
   background-color: var(--secondary-bg-color);
   font-size: calc(var(--size) * 5);
   padding: var(--size);

@@ -4,6 +4,10 @@
   gap: calc(var(--size) * 5);
 }
 
+.note__wrapper * {
+  font-family: inherit;
+}
+
 .note__back-link {
   color: var(--secondary-text-color);
   font-weight: bold;
@@ -21,6 +25,7 @@
 }
 
 .note__content {
+  overflow-x: auto;
   color: var(--secondary-text-color);
 }
 

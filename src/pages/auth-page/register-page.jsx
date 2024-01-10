@@ -1,5 +1,3 @@
-import "./auth-form.css";
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -22,6 +20,11 @@ export function RegisterPage() {
 
     if (!name || !email || !password) {
       alert("please fill in all fields");
+      return;
+    }
+
+    if (name.length > 12) {
+      alert("name must be less than 12 characters.");
       return;
     }
 

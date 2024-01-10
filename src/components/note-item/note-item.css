@@ -1,4 +1,5 @@
 .note-item {
+  height: calc(var(--size) * 52);
   border: 1px solid var(--secondary-bg-color);
   border-radius: var(--size);
   overflow: hidden;
@@ -36,6 +37,10 @@
   margin-top: calc(var(--size) * 2.5);
   color: var(--secondary-text-color);
   font-size: calc(var(--size) * 3.5);
+}
+
+.note-item__body * {
+  font-family: inherit;
 }
 
 .note-item__details-button {

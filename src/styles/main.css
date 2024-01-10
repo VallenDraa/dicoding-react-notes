@@ -3,14 +3,14 @@
 @font-face {
   font-family: "Geist";
   src: local("GeistRegular"),
-    url("./fonts/Geist/Geist-Regular.otf") format("opentype");
+    url("../fonts/Geist/Geist-Regular.otf") format("opentype");
   font-weight: normal;
 }
 
 @font-face {
   font-family: "Geist";
   src: local("GeistBold"),
-    url("./fonts/Geist/Geist-Bold.otf") format("opentype");
+    url("../fonts/Geist/Geist-Bold.otf") format("opentype");
   font-weight: bold;
 }
 

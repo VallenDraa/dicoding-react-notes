@@ -1,27 +1,65 @@
 import "./note-page.css";
 
-import PropTypes from "prop-types";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import { Navbar } from "../../components/ui/navbar";
-import { noteValidator } from "../../utils/validator";
+import {
+  archiveNote,
+  deleteNote,
+  getNote,
+  unarchiveNote,
+} from "../../utils/network-data";
 
-export function NotePage({ notes, onArchive, onDelete }) {
-  const { id } = useParams();
-  const note = notes.find(note => note.id === id);
+export function NotePage() {
   const navigate = useNavigate();
 
+  const { id } = useParams();
+
+  const [hasFetched, setHasFetched] = React.useState(false);
+  const [note, setNote] = React.useState(null);
+  const [error, setError] = React.useState(null);
+
+  const fetchNote = React.useCallback(async () => {
+    try {
+      const noteData = await getNote(id);
+
+      if (noteData.error) {
+        setError("Fail to fetch note!");
+        return;
+      }
+
+      setNote(noteData.data);
+      setHasFetched(true);
+    } catch (error) {
+      setHasFetched(true);
+      setError("Fail to fetch note!");
+    }
+  }, [id]);
+
+  // Fetch the note data on initial load
+  React.useEffect(() => {
+    if (!hasFetched) {
+      fetchNote();
+    }
+  }, [hasFetched, fetchNote]);
+
   function handleArchive() {
-    onArchive(id);
-    navigate(note.archived ? "/archive" : "/");
+    if (note.archived) {
+      unarchiveNote(id);
+      navigate("/");
+    } else {
+      archiveNote(id);
+      navigate("/archive");
+    }
   }
 
   function handleDelete() {
     const isConfirmed = confirm("are you sure you want to delete this note?");
 
     if (isConfirmed) {
-      onDelete(id);
+      deleteNote(id);
       navigate("/");
     }
   }
@@ -29,7 +67,18 @@ export function NotePage({ notes, onArchive, onDelete }) {
   return (
     <>
       <Navbar />
-      {note ? (
+
+      {error ? (
+        <section className="note__missing-wrapper">
+          <h2 className="note__missing-title">can&apos;t fetch note data.</h2>
+          <p className="note__missing-message">
+            it seems that we can&apos;t fetch the note you were looking for!
+          </p>
+          <Link to="/" className="note__back-link">
+            🏠return home
+          </Link>
+        </section>
+      ) : note ? (
         <section className="note__wrapper">
           <div className="note__header">
             <Link to="/" className="note__back-link">
@@ -84,9 +133,3 @@ export function NotePage({ notes, onArchive, onDelete }) {
     </>
   );
 }
-
-NotePage.propTypes = {
-  notes: PropTypes.arrayOf(noteValidator).isRequired,
-  onArchive: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-};

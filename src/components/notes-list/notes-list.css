@@ -11,10 +11,9 @@
   align-items: center;
 }
 
-.notes-list-header__tab-changer {
+.notes-list-header__sort-button {
   font-weight: bold;
   background-color: var(--main-bg-color);
-  border-color: var(--secondary-bg-color);
   color: var(--secondary-text-color);
   padding: calc(var(--size) * 2);
   border-radius: var(--size);
@@ -59,8 +58,8 @@
 
 .notes-list__action {
   all: unset;
-  width: calc(var(--size) * 8.5);
-  height: calc(var(--size) * 8.5);
+  width: calc(var(--size) * 12);
+  height: calc(var(--size) * 12);
   background-color: var(--secondary-bg-color);
   font-size: calc(var(--size) * 7);
   padding: var(--size);

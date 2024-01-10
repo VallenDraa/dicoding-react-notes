@@ -12,7 +12,9 @@ export function NotFoundPage() {
     <>
       <Navbar />
       <section className="not-found__wrapper">
-        <h2 className="not-found__title">error 404.</h2>
+        <h2 className="not-found__title" title="error 404">
+          ⚠️
+        </h2>
         <p className="not-found__message">
           it seems that the page you were looking is missing!
         </p>

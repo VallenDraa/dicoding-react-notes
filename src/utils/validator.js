@@ -6,6 +6,7 @@ export const noteValidator = PropTypes.exact({
   body: PropTypes.string,
   createdAt: PropTypes.string,
   archived: PropTypes.bool,
+  owner: PropTypes.string,
 });
 
 export const notesListType = PropTypes.oneOf(["active", "archived"]);

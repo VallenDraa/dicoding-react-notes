@@ -1,0 +1,16 @@
+.notes-list-page__error-message {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: var(--size);
+  color: var(--secondary-text-color);
+  margin-block: calc(var(--size) * 4);
+}
+
+.notes-list-page__error-message > span {
+  font-size: calc(var(--size) * 8);
+}
+
+.notes-list-page__loading-wrapper {
+}

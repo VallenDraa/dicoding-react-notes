@@ -1,23 +1,23 @@
 import "./new-note-page.css";
 
-import PropTypes from "prop-types";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Navbar } from "../../components/ui/navbar";
+import { addNote } from "../../utils/network-data";
 
-export function NewNotePage({ onAddNote }) {
+export function NewNotePage() {
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
   const navigate = useNavigate();
 
-  function handleSaveNote() {
+  async function handleSaveNote() {
     if (!title || !body) {
       alert("Please fill in the title and body of the note.");
       return;
     }
 
-    onAddNote(title, body);
+    await addNote({ title, body });
     navigate("/");
   }
 
@@ -56,7 +56,3 @@ export function NewNotePage({ onAddNote }) {
     </>
   );
 }
-
-NewNotePage.propTypes = {
-  onAddNote: PropTypes.func.isRequired,
-};

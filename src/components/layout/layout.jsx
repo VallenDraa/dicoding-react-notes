@@ -37,20 +37,8 @@ export function Layout() {
                 path="/archive"
                 element={<NotesListPage notes={[]} type="archived" />}
               />
-              <Route
-                path="/new-note"
-                element={<NewNotePage onAddNote={() => {}} />}
-              />
-              <Route
-                path="/note/:id"
-                element={
-                  <NotePage
-                    notes={[]}
-                    onArchive={() => {}}
-                    onDelete={() => {}}
-                  />
-                }
-              />
+              <Route path="/new-note" element={<NewNotePage />} />
+              <Route path="/note/:id" element={<NotePage />} />
             </Route>
           </Routes>
         </BrowserRouter>

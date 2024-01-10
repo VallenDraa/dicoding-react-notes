@@ -13,20 +13,36 @@ import { NoteSearchbar } from "../note-searchbar";
 export function NotesList({ type = "active", notes }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
+  const [sortDesc, setSortDesc] = React.useState(true);
 
   const { user, isLoading } = useAuth();
 
-  const filteredNotes = React.useMemo(
-    () => notes.filter(note => note.title.includes(keyword)),
-    [keyword, notes],
-  );
+  const filteredNotes = React.useMemo(() => {
+    return notes
+      .filter(note => note.title.includes(keyword))
+      .sort((a, b) => {
+        const dateA = new Date(a.createdAt).getTime();
+        const dateB = new Date(b.createdAt).getTime();
+
+        if (sortDesc) {
+          return dateA - dateB;
+        } else {
+          return dateB - dateA;
+        }
+      });
+  }, [keyword, notes, sortDesc]);
 
   return (
     <section>
       <div className="notes-list-header">
         <div className="notes-list-header__top">
           <h2>{`🗒️${!isLoading ? user.name : "xxxx"}'s ${type} notes`}</h2>
-          <button className="notes-list-header__sort-button">⬆️ sort</button>
+          <button
+            className="notes-list-header__sort-button"
+            onClick={() => setSortDesc(prev => !prev)}
+          >
+            {sortDesc ? "⬇️" : "⬆️"} sort
+          </button>
         </div>
         <NoteSearchbar
           keyword={keyword}

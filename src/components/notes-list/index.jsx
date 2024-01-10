@@ -51,25 +51,24 @@ export function NotesList({ isLoading, type = "active", notes }) {
         />
       </div>
 
-      {filteredNotes.length === 0 ? (
+      {isLoading ? (
+        <CustomSkeleton
+          inline
+          containerClassName="notes-list"
+          className="note-item"
+          count={10}
+          height={200}
+        />
+      ) : filteredNotes.length === 0 ? (
         <p className="notes-list__empty-message">no notes here 🙅</p>
       ) : (
         <>
-          {isLoading ? (
-            <CustomSkeleton
-              inline
-              containerClassName="notes-list"
-              className="note-item"
-              count={10}
-              height={200}
-            />
-          ) : (
-            <ul className="notes-list">
-              {filteredNotes.map(note => (
-                <NoteItem key={note.id} note={note} />
-              ))}
-            </ul>
-          )}
+          <ul className="notes-list">
+            {filteredNotes.map(note => (
+              <NoteItem key={note.id} note={note} />
+            ))}
+          </ul>
+
           <span className="notes-list__end-message">end of note list.</span>
         </>
       )}
